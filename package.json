@@ -1,0 +1,33 @@
+{
+  "author": "Raghhav D Turki",
+  "dependencies": {
+    "@types/ioredis": "^4.28.2",
+    "axios": "^0.21.4",
+    "ioredis": "^4.27.9",
+    "tsc": "^2.0.3",
+    "yahoo-finance2": "^2.0.1"
+  },
+  "description": "Analyzing stocks and crypto using Redis, Prophet and Grafana",
+  "devDependencies": {
+    "@types/node": "^16.11.11",
+    "ts-node-dev": "^1.1.8",
+    "typescript": "^4.5.2"
+  },
+  "name": "redis-finance-prophet",
+  "scripts": {
+    "import": "node src/import.ts",
+    "predict:30": "redis-cli RG.PYEXECUTE \"`cat ./gears/predict30.py`\" REQUIREMENTS prophet",
+    "predict:365": "redis-cli RG.PYEXECUTE \"`cat ./gears/predict365.py`\" REQUIREMENTS prophet",
+    "predict:7": "redis-cli RG.PYEXECUTE \"`cat ./gears/predict7.py`\" REQUIREMENTS prophet",
+    "predict:90": "redis-cli RG.PYEXECUTE \"`cat ./gears/predict90.py`\" REQUIREMENTS prophet",
+    "redis-cli": "docker exec -it redis redis-cli",
+    "start": "docker-compose pull && docker-compose up",
+    "start:master": "docker-compose -f docker-compose/master.yml pull && docker-compose -f docker-compose/master.yml up",
+    "stop": "docker-compose down",
+    "stop:master": "docker-compose -f docker-compose/master.yml down",
+    "upgrade": "yarn upgrade --latest",
+    "dev": "ts-node-dev --respawn --transpile-only src/proper_import.ts",
+    "dev1": "ts-node-dev --respawn --transpile-only src/getDailyData.ts"
+  },
+  "version": "1.0.0"
+}
